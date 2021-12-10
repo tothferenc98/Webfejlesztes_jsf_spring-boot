@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<ui:composition template="layout.xhtml">
+	<ui:define name="content">
+		<h:form id="carForm">
+			<p:panel header="Car Info" id="carInfoPnl">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="name" value="Car Brand: " />
+					<p:inputText id="name" size="40"
+						value="#{carController.carUiTO.carName}" required="true"
+						requiredMessage="Please enter car brand name " />
+
+
+					<p:outputLabel for="cartype" value="Car Type: " />
+					<p:inputText id="cartype"
+								 value="#{carController.carUiTO.cartypeId}" size="40"
+								 required="true" label="Car Type">
+
+					</p:inputText>
+
+
+					<p:outputLabel for="bodytype" value="Body Type: " />
+					<p:selectOneMenu id="bodytype"
+									 value="#{carController.carUiTO.typeUITO}"
+									 style="width:150px" converter="#{typeConverter}">
+						<f:selectItems value="#{carController.typeUiToList}"
+									   var="typeUITO" itemLabel="#{typeUITO.typeName}"
+									   itemValue="#{typeUITO}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="license" value="License plate number:" />
+					<p:inputTextarea id="license"
+									 value="#{carController.carUiTO.license}" rows="1" required="true"/>
+
+					<p:commandButton type="button"  value="#{carController.actionLabel}"
+						action="#{carController.doSaveInfoEmpl}" >
+						<f:ajax execute="carForm" render="carlist carInfoPnl" />
+
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<p:panel header="Car List" id="carlist">
+				<p:dataTable id="table" var="car"
+					value="#{carController.carUiToList}">
+					<p:column>
+						<f:facet name="header"># Car Id</f:facet>
+						<h:outputText value="#{car.carId}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Brand</f:facet>
+						<h:outputText value="#{car.carName}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">Type</f:facet>
+						<h:outputText value="#{car.cartypeId}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Body type</f:facet>
+						<h:outputText value="#{car.typeUITO.typeName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Plate number</f:facet>
+						<h:outputText value="#{car.license}">
+						</h:outputText>
+					</p:column>
+
+					<p:column id="action">
+						<f:facet name="header">Action</f:facet>
+						<h:commandLink value="Edit"
+							action="#{carController.editEmployee(car)}">
+							<f:ajax execute="action" render="carForm" />
+						</h:commandLink> /
+						  <sec:authorize access="hasRole('ROLE_ADMIN')">
+							<h:commandLink value="Delete"
+								action="#{carController.deleteEmployee(car)}">
+								<f:ajax execute="action" render="table" />
+							</h:commandLink>
+						</sec:authorize>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

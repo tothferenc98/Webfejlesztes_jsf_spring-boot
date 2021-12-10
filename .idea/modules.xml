@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Webfejlesztes_jsf_spring-boot.iml" filepath="$PROJECT_DIR$/.idea/Webfejlesztes_jsf_spring-boot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Webfejlesztes_jsf_spring-boot/jsfspring.iml" filepath="$PROJECT_DIR$/Webfejlesztes_jsf_spring-boot/jsfspring.iml" />
+    </modules>
+  </component>
+</project>
