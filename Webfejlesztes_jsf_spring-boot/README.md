@@ -23,4 +23,4 @@ Add, delete and update the car information with with the help of JSF and Spring.
 #####   H2 DB Console:
 -  http://localhost:9090/jsfspring/h2/
 
-- data.sql will insert some employee information and Department information in h2 db
+- data.sql will insert some car information and body type information in h2 db
